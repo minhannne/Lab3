@@ -1,5 +1,6 @@
 import { Fragment, useId, useState } from 'react'
 import SkillBadge from './SkillBadge'
+import styles from './DeveloperCard.module.css'
 
 export default function DeveloperCard({
   fullName = 'Tran Vinh Khiem',
@@ -34,10 +35,11 @@ export default function DeveloperCard({
     failedAvatarUrl !== avatarUrl
 
   return (
-    <article aria-labelledby={headingId}>
-      <header>
+    <article className={styles.card} aria-labelledby={headingId}>
+      <header className={styles.header}>
         {showAvatar ? (
           <img
+            className={styles.avatar}
             src={avatarUrl}
             alt={`Portrait of ${fullName}`}
             width={64}
@@ -45,7 +47,11 @@ export default function DeveloperCard({
             onError={() => setFailedAvatarUrl(avatarUrl)}
           />
         ) : (
-          <span role="img" aria-label={`Avatar of ${fullName}`}>
+          <span
+            className={`${styles.avatar} ${styles.initials}`}
+            role="img"
+            aria-label={`Avatar of ${fullName}`}
+          >
             {initials}
           </span>
         )}
@@ -56,7 +62,7 @@ export default function DeveloperCard({
         </hgroup>
       </header>
 
-      <dl>
+      <dl className={styles.metrics}>
         {Object.entries(metrics).map(([key, value]) => (
           <Fragment key={key}>
             <dt>{key}</dt>
@@ -65,7 +71,7 @@ export default function DeveloperCard({
         ))}
       </dl>
 
-      <ul aria-label="Skills">
+      <ul className={styles.skills} aria-label="Skills">
         {skills.map((skill) => (
           <li key={skill.id}>
             <SkillBadge name={skill.name} level={skill.level} />
