@@ -163,3 +163,47 @@ section > h2 {
     grid-template-columns: 1fr;
   }
 }
+.directory-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.result-count {
+  color: #37664e;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.reset-button {
+  min-height: 44px;
+  padding: 10px 18px;
+  color: #ffffff;
+  background: #285d46;
+  border: 1px solid #285d46;
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+.reset-button:hover {
+  background: #1c4533;
+}
+
+.delete-button {
+  min-height: 44px;
+  margin-top: 24px;
+  padding: 9px 16px;
+  color: #963c35;
+  background: #fff7f5;
+  border: 1px solid #dbb0a9;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.delete-button:hover {
+  background: #fbe5df;
+}

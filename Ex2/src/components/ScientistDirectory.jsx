@@ -1,9 +1,12 @@
-import { useId, useState } from 'react'
+import { useId, useRef, useState } from 'react'
 import { SMART_PEOPLE } from '../data/smartPeople'
 
 export default function ScientistDirectory({ initialData = SMART_PEOPLE }) {
   const id = useId()
-  const [people] = useState(initialData)
+  const listRef = useRef(null)
+  const resetRef = useRef(null)
+
+  const [people, setPeople] = useState(initialData)
   const [query, setQuery] = useState('')
   const [minIq, setMinIq] = useState(160)
   const [sortBy, setSortBy] = useState('iq-desc')
@@ -17,6 +20,30 @@ export default function ScientistDirectory({ initialData = SMART_PEOPLE }) {
     .toSorted((a, b) =>
       sortBy === 'iq-desc' ? b.iq - a.iq : a.age - b.age,
     )
+
+  function handleDelete(personId, clickedButton) {
+    if (document.activeElement === clickedButton) {
+      const buttons = Array.from(
+        listRef.current.querySelectorAll('.delete-button'),
+      )
+      const index = buttons.indexOf(clickedButton)
+      const nextButton =
+        buttons[index + 1] ?? buttons[index - 1] ?? resetRef.current
+
+      nextButton?.focus()
+    }
+
+    setPeople((previous) =>
+      previous.filter((person) => person.id !== personId),
+    )
+  }
+
+  function handleReset() {
+    setPeople(initialData.map((person) => ({ ...person })))
+    setQuery('')
+    setMinIq(160)
+    setSortBy('iq-desc')
+  }
 
   return (
     <section aria-labelledby={`${id}-title`}>
@@ -67,11 +94,29 @@ export default function ScientistDirectory({ initialData = SMART_PEOPLE }) {
         </div>
       </form>
 
+      <div className="directory-toolbar">
+        <output className="result-count" role="status" aria-live="polite">
+          Found {visiblePeople.length}{' '}
+          {visiblePeople.length === 1 ? 'person' : 'people'}
+        </output>
+
+        <button
+          ref={resetRef}
+          className="reset-button"
+          type="button"
+          onClick={handleReset}
+        >
+          Reset directory
+        </button>
+      </div>
+
       {visiblePeople.length === 0 && (
-        <p className="empty-state">No people match your filters.</p>
+        <p className="empty-state">
+          No people match your filters. Adjust them or reset the directory.
+        </p>
       )}
 
-      <ul className="people-list">
+      <ul className="people-list" ref={listRef}>
         {visiblePeople.map((person) => (
           <li className="person-card" key={person.id}>
             <h3>{person.name}</h3>
@@ -86,6 +131,17 @@ export default function ScientistDirectory({ initialData = SMART_PEOPLE }) {
                 <dd>{person.iq}</dd>
               </div>
             </dl>
+
+            <button
+              className="delete-button"
+              type="button"
+              aria-label={`Delete ${person.name}`}
+              onClick={(event) =>
+                handleDelete(person.id, event.currentTarget)
+              }
+            >
+              Delete
+            </button>
           </li>
         ))}
       </ul>
