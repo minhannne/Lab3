@@ -1,0 +1,320 @@
+
+#root {
+  min-height: 100vh;
+}
+
+.telemetry-panel {
+  width: min(1100px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 44px 0 60px;
+}
+
+.telemetry-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 30px;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: #f5a623;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+}
+
+.telemetry-header h1 {
+  margin: 0;
+  font-size: clamp(27px, 4vw, 42px);
+  line-height: 1.15;
+  letter-spacing: -1.3px;
+}
+
+.telemetry-header > div:first-child > p:last-child {
+  margin: 12px 0 0;
+  color: #94b7e5;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.squad-selector {
+  display: grid;
+  gap: 8px;
+  min-width: 220px;
+}
+
+.squad-selector label {
+  color: #aebed3;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.squad-selector select {
+  width: 100%;
+  padding: 12px 14px;
+  color: #f4f7fb;
+  background: #191e2c;
+  border: 1px solid #39465f;
+  border-radius: 9px;
+}
+
+.squad-selector select option {
+  color: #f4f7fb;
+  background: #191e2c;
+}
+
+.skeleton-card,
+.telemetry-card,
+.telemetry-error {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid #35435c;
+  border-radius: 20px;
+  background: linear-gradient(145deg, #191f30, #111622);
+  box-shadow: 0 18px 45px rgb(0 0 0 / 18%);
+}
+
+.skeleton-card {
+  display: flex;
+  min-height: 220px;
+  height: 220px;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 15px;
+  padding: 26px;
+}
+
+.skeleton-card p {
+  margin: 0;
+  color: #a9c8ed;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.skeleton-orb {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  border: 2px solid rgb(56 189 248 / 85%);
+  border-radius: 50%;
+  background: rgb(37 99 235 / 35%);
+  box-shadow:
+    0 0 18px rgb(59 130 246 / 75%),
+    0 0 40px rgb(37 99 235 / 35%);
+  animation: blue-zone-pulse 1.4s ease-in-out infinite;
+}
+
+.skeleton-line {
+  width: min(360px, 80%);
+  height: 10px;
+  border-radius: 20px;
+  background: linear-gradient(
+    90deg,
+    #242d42 25%,
+    #354967 50%,
+    #242d42 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s linear infinite;
+}
+
+.skeleton-line.short {
+  width: min(220px, 55%);
+}
+
+@keyframes blue-zone-pulse {
+  0%,
+  100% {
+    opacity: 0.65;
+    transform: scale(0.92);
+    box-shadow: 0 0 12px rgb(59 130 246 / 40%);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+    box-shadow:
+      0 0 22px rgb(59 130 246 / 90%),
+      0 0 44px rgb(37 99 235 / 45%);
+  }
+}
+
+@keyframes skeleton-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+
+  to {
+    background-position: -100% 0;
+  }
+}
+
+.telemetry-card {
+  padding: 28px;
+  animation: card-appear 300ms ease-out;
+}
+
+.team-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #303b50;
+}
+
+.team-heading h2 {
+  margin: 0;
+  font-size: clamp(22px, 3vw, 30px);
+  letter-spacing: -0.5px;
+}
+
+.status-badge {
+  display: inline-flex;
+  max-width: 100%;
+  align-items: center;
+  padding: 8px 12px;
+  color: #75f0bc;
+  background: rgb(16 185 129 / 12%);
+  border: 1px solid rgb(52 211 153 / 35%);
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.telemetry-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin: 24px 0 0;
+}
+
+.telemetry-stats > div {
+  min-width: 0;
+  padding: 20px;
+  background: #0e1421;
+  border: 1px solid #27334a;
+  border-radius: 14px;
+}
+
+.telemetry-stats dt {
+  margin-bottom: 12px;
+  color: #91a4c1;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.telemetry-stats dd {
+  margin: 0;
+  color: #f5a623;
+  font-size: clamp(18px, 2.4vw, 25px);
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.telemetry-error {
+  padding: 28px;
+  border-color: rgb(248 113 113 / 55%);
+  background: linear-gradient(145deg, #291a25, #151521);
+}
+
+.telemetry-error h2 {
+  margin: 0 0 12px;
+  color: #fca5a5;
+  font-size: 23px;
+}
+
+.telemetry-error p {
+  color: #e0cbd3;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.telemetry-error button {
+  margin-top: 12px;
+  padding: 12px 18px;
+  color: #15100a;
+  background: #f5a623;
+  border: 1px solid #ffc15a;
+  border-radius: 9px;
+  font-weight: 800;
+  transition:
+    background 160ms ease,
+    transform 160ms ease;
+}
+
+.telemetry-error button:hover {
+  background: #ffc15a;
+  transform: translateY(-1px);
+}
+
+.telemetry-error button:active {
+  transform: translateY(0);
+}
+
+@keyframes card-appear {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 700px) {
+  .telemetry-panel {
+    width: min(100% - 28px, 540px);
+    padding-top: 28px;
+  }
+
+  .telemetry-header {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .squad-selector {
+    min-width: 0;
+  }
+
+  .telemetry-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .telemetry-card,
+  .telemetry-error {
+    padding: 20px;
+  }
+
+  .team-heading {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 380px) {
+  .telemetry-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .telemetry-header h1 {
+    font-size: 27px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
